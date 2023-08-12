@@ -1,20 +1,27 @@
 from django.shortcuts import render
+from django.conf import settings
 import requests
 import datetime
+import os
+
+
 
 def index(request):
-    api_key = open("API_KEY", "r").read()
-    current_weather_url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}'
-    forecast_url = 'https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&exclude=current,minutely,hourly,alerts&appid={}'
-
+    api_key = settings.OPEN_WEATHER_MAP_API_KEY
+    
     if request.method == 'POST':
+        print(request.POST) 
         city1 = request.POST['city1']
+        current_weather_url1 = f'https://api.openweathermap.org/data/2.5/weather?q={city1}&appid={api_key}'
+        forecast_url1 = f'https://api.openweathermap.org/data/2.5/forecast?q={city1}&appid={api_key}'
+
+        weather_data1, daily_forecasts1 = fetch_weather_and_forecast(city1, api_key, current_weather_url1, forecast_url1)
+
         city2 = request.POST.get('city2', None)
-
-        weather_data1, daily_forecasts1 = fetch_weather_and_forecast(city1, api_key, current_weather_url, forecast_url)
-
         if city2:
-            weather_data2, daily_forecasts2 = fetch_weather_and_forecast(city2, api_key, current_weather_url, forecast_url)
+            current_weather_url2 = f'https://api.openweathermap.org/data/2.5/weather?q={city2}&appid={api_key}'
+            forecast_url2 = f'https://api.openweathermap.org/data/2.5/forecast?q={city2}&appid={api_key}'
+            weather_data2, daily_forecasts2 = fetch_weather_and_forecast(city2, api_key, current_weather_url2, forecast_url2)
         else:
             weather_data2, daily_forecasts2 = None, None
 
@@ -38,8 +45,7 @@ def fetch_weather_and_forecast(city, api_key, current_weather_url, forecast_url)
         print(response)
         return None, None
 
-    lat, lon = response['coord']['lat'], response['coord']['lon']
-    forecast_response = requests.get(forecast_url.format(lat, lon, api_key)).json()
+    forecast_response = requests.get(forecast_url.format(city, api_key)).json()
 
     # Print the forecast response to diagnose potential issues
     print(forecast_response)
@@ -51,15 +57,22 @@ def fetch_weather_and_forecast(city, api_key, current_weather_url, forecast_url)
         'icon': response['weather'][0]['icon'],
     }
 
-    daily_data = forecast_response.get('daily', [])
+    # Process 5-day forecast data from 3-hourly intervals:
     daily_forecasts = []
-    for daily in daily_data[:5]:
+    for i in range(0, 40, 8):  # There are 40 data points (5 days * 8 data points/day)
+        daily_data = forecast_response['list'][i]
+        day = datetime.datetime.fromtimestamp(daily_data['dt']).strftime('%A')
+        min_temp = round(min(item['main']['temp_min'] for item in forecast_response['list'][i:i+8]) - 273.15, 2)
+        max_temp = round(max(item['main']['temp_max'] for item in forecast_response['list'][i:i+8]) - 273.15, 2)
+        description = daily_data['weather'][0]['description']
+        icon = daily_data['weather'][0]['icon']
         daily_forecasts.append({
-            'day': datetime.datetime.fromtimestamp(daily['dt']).strftime('%A'),
-            'min_temp': round(daily['temp']['min'] - 273.15, 2),
-            'max_temp': round(daily['temp']['max'] - 273.15, 2),
-            'description': daily['weather'][0]['description'],
-            'icon': daily['weather'][0]['icon'],
+            'day': day,
+            'min_temp': min_temp,
+            'max_temp': max_temp,
+            'description': description,
+            'icon': icon,
         })
+    print(forecast_response)
 
     return weather_data, daily_forecasts
