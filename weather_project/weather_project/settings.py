@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 SECRET_KEY = config('SECRET_KEY')
-OPEN_WEATHER_MAP_API_KEY = os.environ.get('OPEN_WEATHER_MAP_API_KEY')
+OPEN_WEATHER_MAP_API_KEY = config('OPEN_WEATHER_MAP_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
