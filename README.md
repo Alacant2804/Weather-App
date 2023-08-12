@@ -21,28 +21,28 @@ Pip (Python Package Installer)
 
 Installation Steps
 
-Clone the Repository
+Clone the Repository:
 git clone https://github.com/yourusername/weather_project.git
 cd weather_project
 
-Virtual Environment Setup (Highly recommended to keep dependencies clean)
+Virtual Environment Setup (Highly recommended to keep dependencies clean):
 python3 -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
-Dependency Installation
+Dependency Installation:
 pip install -r requirements.txt  # Ensure you have a requirements.txt file listing all dependencies
 
-Environment Variables
+Environment Variables:
 Make sure you have the OpenWeatherMap API key set as an environment variable named OPEN_WEATHER_MAP_API_KEY.
 For added security, store your Django SECRET_KEY as an environment variable as well.
 
-Migrate the Database
+Migrate the Database:
 python3 manage.py migrate
 
-Fire Up the Development Server
+Fire Up the Development Server:
 python3 manage.py runserver
 
-Accessing the Web App
+Accessing the Web App:
 Simply open your preferred browser and navigate to:
 http://localhost:8000/
 
