@@ -32,9 +32,12 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 Dependency Installation:
 pip install -r requirements.txt  # Ensure you have a requirements.txt file listing all dependencies
 
-Environment Variables:
-Make sure you have the OpenWeatherMap API key set as an environment variable named OPEN_WEATHER_MAP_API_KEY.
-For added security, store your Django SECRET_KEY as an environment variable as well.
+Set Up Environment Variables:
+Create a .env file in the project root.
+Add your OpenWeatherMap API key and Django SECRET_KEY like so:
+OPEN_WEATHER_MAP_API_KEY=your_api_key_here
+SECRET_KEY=your_secret_key_here
+Note: Obtain your own OpenWeatherMap API key from the official site if you haven't already.
 
 Migrate the Database:
 python3 manage.py migrate
