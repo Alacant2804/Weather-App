@@ -7,6 +7,7 @@ Dive into meteorological insights with the Weather Comparison App. Built using t
 Dual City Input: Users can juxtapose the climatic conditions of two cities simultaneously.
 Dynamic 5-day Forecast: The app extends its functionality beyond current conditions, giving users a glimpse of the week ahead.
 Interactive UI: Featuring intuitive controls and vibrant icons that bring the forecast to life.
+
 🛠️ Tech Stack
 
 Django 4.1
