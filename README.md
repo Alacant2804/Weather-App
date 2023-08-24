@@ -14,6 +14,7 @@ Django 4.1
 OpenWeatherMap API
 SQLite (Default Django database)
 Bootstrap (For UI components)
+
 🚀 Getting Started
 
 Prerequisites
