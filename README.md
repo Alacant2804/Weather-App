@@ -66,12 +66,8 @@ Simply open your preferred browser and navigate to http://localhost:8000/
 
 ## 📘 Usage Guide
 
-City Selection: Use the input fields on the homepage to enter the names of the cities you're keen on comparing.
-Data Presentation: Upon pressing "Compare," the application fetches the requisite data and renders it in an aesthetically pleasing format, presenting current conditions along with a comprehensive 5-day forecast.
-
-## 🤝 Contributing
-
-We encourage you to contribute to Weather Comparison App! Please check out the Contributing guidelines for guidelines about how to proceed.
+* City Selection: Use the input fields on the homepage to enter the names of the cities you're keen on comparing.
+* Data Presentation: Upon pressing "Compare," the application fetches the requisite data and renders it in an aesthetically pleasing format, presenting current conditions along with a comprehensive 5-day forecast.
 
 ## 📄 License
 
