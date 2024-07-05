@@ -47,6 +47,7 @@ Set Up Environment Variables:
 * Add your OpenWeatherMap API key and Django SECRET_KEY like so:
   * OPEN_WEATHER_MAP_API_KEY=your_api_key_here
   * SECRET_KEY=your_secret_key_here
+ 
 ***Note: Obtain your own OpenWeatherMap API key from the official site if you haven't already.***
 
 Migrate the Database:
